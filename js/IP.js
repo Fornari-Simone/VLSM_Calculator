@@ -1,6 +1,6 @@
 class IP {
-    constructor (ip, mask){
-        this.ip = ip.split(".").map(value => parseInt(value));
+    constructor (net, mask){
+        this.net = net.split(".").map(value => parseInt(value));
         // if mask
         if(mask.length > 7 && (mask.match(/[.]/g)||[]).length === 3){
             this.mask = mask.split(".").map(value => parseInt(value));
@@ -13,12 +13,18 @@ class IP {
             this.cidr = parseInt(tempCidr.join(""));
             this.mask = this.MaskToCidr(mask)
         }
+        this.net = this.toNet();
         this.wildcard = this.Wildcard()
-        this.gateway = this.Gateway()
         this.broadcast = this.Broadcast()
+        this.firstHost = this.FirstHost()
+        this.lastHost = this.LastHost()
     }
 
-    CidrToMask(cidr){
+    toNet(){
+        return this.net.map((value, idx) => value & this.mask[idx])
+    }
+
+    CidrToMask(){
         let tempCidr = this.mask.map(value => (value.toString(2).match(/1/g) || []).length);
         let outCidr = 0;
         tempCidr.forEach(element => {
@@ -55,14 +61,33 @@ class IP {
         return tempWildcard.map(value => parseInt(value,2))
     }
 
-    Gateway() {
-        return [this.ip[0], this.ip[1], this.ip[2], this.ip[3] | 1]
+    FirstHost() {
+        return [this.net[0], this.net[1], this.net[2], this.net[3] | 1]
     }
 
     Broadcast() {
-        return this.ip.map((value, idx) => value | this.wildcard[idx]);
+        return this.net.map((value, idx) => value | this.wildcard[idx]);
     }
 
-    FirsHost() {
+    LastHost() {
+        return this.net.map((value, idx) => {
+            let wildcardAdjust = idx != 3 ? this.wildcard[idx] : this.wildcard[idx]-1
+            return value | wildcardAdjust
+        });
+    }
+
+    Row(head, value) {
+        return `<div class="row"><h2>${head}</h2><label>${value}</label></div>`
+    }
+    Dom(){
+        return {
+            net: this.Row("NET", this.net.join(".")),
+            mask: this.Row("MASK", this.mask.join(".")), 
+            cidr: this.Row("CIDR",`/${this.cidr}`),
+            first: this.Row("FIRST HOST",this.firstHost.join(".")),
+            last: this.Row("LAST HOST",this.lastHost.join(".")),
+            broadcast: this.Row("BROADCAST", this.broadcast.join(".")),
+            wildcard: this.Row("WILDCARD", this.wildcard.join("."))
+        }
     }
 }
