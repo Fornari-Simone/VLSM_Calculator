@@ -1,18 +1,8 @@
 class IP {
     constructor (net, mask){
         this.net = net.split(".").map(value => parseInt(value));
-        // if mask
-        if(mask.length > 7 && (mask.match(/[.]/g)||[]).length === 3){
-            this.mask = mask.split(".").map(value => parseInt(value));
-            this.cidr = this.CidrToMask()
-        }
-        // if
-        else{
-            let tempCidr = mask.split("");
-            tempCidr.shift();
-            this.cidr = parseInt(tempCidr.join(""));
-            this.mask = this.MaskToCidr(mask)
-        }
+        this.cidr = parseInt(mask);
+        this.mask = this.CidrToMask()
         this.net = this.toNet();
         this.wildcard = this.Wildcard()
         this.broadcast = this.Broadcast()
@@ -25,15 +15,6 @@ class IP {
     }
 
     CidrToMask(){
-        let tempCidr = this.mask.map(value => (value.toString(2).match(/1/g) || []).length);
-        let outCidr = 0;
-        tempCidr.forEach(element => {
-            outCidr += parseInt(element);
-        });
-        return outCidr
-    }
-
-    MaskToCidr() {
         let tempCidr = this.cidr;
         let outMask = ""
         for (let i = 0; i < 32; i++) {
@@ -80,14 +61,14 @@ class IP {
         return `<div class="row"><h2 class="cell">${head}</h2><label class="cell">${value}</label></div>`
     }
     Dom(){
-        return {
-            net: this.Row("NET", this.net.join(".")),
-            mask: this.Row("MASK", this.mask.join(".")), 
-            cidr: this.Row("CIDR",`/${this.cidr}`),
-            first: this.Row("FIRST HOST",this.firstHost.join(".")),
-            last: this.Row("LAST HOST",this.lastHost.join(".")),
-            broadcast: this.Row("BROADCAST", this.broadcast.join(".")),
-            wildcard: this.Row("WILDCARD", this.wildcard.join("."))
-        }
+        return 
+            this.Row("NET", this.net.join(".")) +
+            this.Row("MASK", this.mask.join(".")) +
+            this.Row("CIDR",`/${this.cidr}`) +
+            this.Row("FIRST HOST",this.firstHost.join(".")) +
+            this.Row("LAST HOST",this.lastHost.join(".")) +
+            this.Row("BROADCAST", this.broadcast.join(".")) +
+            this.Row("WILDCARD", this.wildcard.join("."))
+        
     }
 }
