@@ -77,7 +77,7 @@ class IP {
     }
 
     Row(head, value) {
-        return `<div class="row"><h2>${head}</h2><label>${value}</label></div>`
+        return `<div class="row"><h2 class="cell">${head}</h2><label class="cell">${value}</label></div>`
     }
     Dom(){
         return {
