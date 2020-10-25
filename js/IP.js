@@ -57,18 +57,22 @@ class IP {
         });
     }
 
-    Row(head, value) {
-        return `<div class="row"><h2 class="cell">${head}</h2><label class="cell">${value}</label></div>`
+    HeadCell(value){
+        return `<h2 class="${value}">${value}</h2>`
     }
+
+    ValueCell(head, value) {
+        return `<label class="cell ${head}">${value}</label>`
+    }
+
     Dom(){
-        return 
-            this.Row("NET", this.net.join(".")) +
-            this.Row("MASK", this.mask.join(".")) +
-            this.Row("CIDR",`/${this.cidr}`) +
-            this.Row("FIRST HOST",this.firstHost.join(".")) +
-            this.Row("LAST HOST",this.lastHost.join(".")) +
-            this.Row("BROADCAST", this.broadcast.join(".")) +
-            this.Row("WILDCARD", this.wildcard.join("."))
-        
+        return [
+            this.ValueCell("NET", this.net.join(".")),
+            this.ValueCell("MASK", `${this.mask.join(".")} (/${this.cidr})`),
+            this.ValueCell("FIRST HOST", this.firstHost.join(".")),
+            this.ValueCell("LAST HOST", this.lastHost.join(".")),
+            this.ValueCell("BROADCAST", this.broadcast.join(".")),
+            this.ValueCell("WILDCARD", this.wildcard.join("."))
+        ]
     }
 }

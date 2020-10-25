@@ -20,21 +20,26 @@ body, html{
 label{
     font-family: Arial;
     font-size: 25px;
+    padding-top: 55px;
+    text-align: center;
+    border: 1.5px solid;
+}
+#netDiv > label{
+    border: none;
 }
 input{
     margin: auto;
 }
 #table{
-    display: table;
-    margin: 0px 15px;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 0px 30px;
     height: 75vh;
-}
-.row{
-    display: table-row;
-}
-.cell{
-    display: table-cell;
 }
 h2{
     display: inline;
+    margin: 0px;
+    padding-top: 55px;
+    text-align: center;
+    border: 1.5px solid;
 }
