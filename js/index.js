@@ -1,4 +1,9 @@
 function createDom(value){
+    let patt = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}[/](3[0-2]|[1-2][0-9]|[0-9)])$/g
+    if (!patt.test(value)) {
+        alert("wrong IP");
+        return ;
+    }
     let table = document.getElementById("table");
     let text = value.split("/")
     let ip = new IP(text[0], text[1])
