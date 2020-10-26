@@ -57,6 +57,10 @@ class IP {
         });
     }
 
+    HighButton() {
+        return `<h3>${this.net.join(".")} (/${this.cidr})</h3>`
+    }
+
     Dom(){
         return [
             this.net.join("."),
