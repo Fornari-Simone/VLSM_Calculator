@@ -20,6 +20,7 @@ function createDom(value){
         table.innerHTML += head[idx]
         table.innerHTML += value
     })
+    document.getElementById("Elenco").innerHTML += ip.HighButton();
 }
 
 function textbox(e){

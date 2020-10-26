@@ -57,6 +57,10 @@ class IP {
         });
     }
 
+    HighButton() {
+        return `<h3>${this.net.join(".")}/${this.cidr}</h3>`
+    }
+
     HeadCell(value){
         return `<h2 class="${value}">${value}</h2>`
     }
