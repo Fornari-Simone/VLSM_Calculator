@@ -1,9 +1,4 @@
 function createDom(value){
-    let patt = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}[/](3[0-2]|[1-2][0-9]|[0-9)])$/g
-    if (!patt.test(value)) {
-        alert("wrong IP");
-        return ;
-    }
     let table = [...document.querySelectorAll("#table label")];
     let text = value.split("/")
     let ip = new IP(text[0], text[1])
@@ -32,5 +27,17 @@ function controlSpace(param, cidr){
 }
 
 function textbox(e){
-    this.createDom(e.parentNode.querySelector("input").value)
+    let value = document.getElementById("Net").value;
+    let patt = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}[/](3[0-2]|[1-2][0-9]|[0-9)])$/g
+    if (!patt.test(value)) {
+        alert("wrong IP");
+        return ;
+    }
+    let param = document.getElementById("host").value
+    let param = param.split(", ").map(value => parseInt(value))
+    if(!controlSpace(param, parseInt(value.split("/")[1]))) return
+    document.getElementById("table").style.display = "grid";
+    document.getElementById("Elenco").style.display = "block";
+    document.getElementById("hosts").style.display = "none";
+    this.createDom(value)
 }

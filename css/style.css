@@ -24,17 +24,23 @@ label{
     text-align: center;
     border: 1.5px solid;
 }
-#netDiv > label{
+#netDiv > label, #hosts > label{
     border: none;
+}
+#hosts{
+    text-align: center;
 }
 input{
     margin: auto;
 }
 #table{
-    display: grid;
+    display: none;
     grid-template-columns: auto auto;
     margin: 0px 30px;
     height: 75vh;
+}
+#Elenco{
+    display: none;
 }
 h2{
     display: inline;
