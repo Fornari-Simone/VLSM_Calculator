@@ -70,3 +70,13 @@ function add0(value){
     for (let i = 0; i < lung; i++) out += "0"
     return out + value
 }
+
+function reset(){
+    document.getElementById("Net").value = ""
+    document.getElementById("host").value = ""
+    ips = []
+    document.getElementById("table").style.display = "none";
+    document.getElementById("Elenco").style.display = "none";
+    document.getElementById("hosts").style.display = "block";
+    document.getElementById("Elenco").innerHTML = "";
+}
