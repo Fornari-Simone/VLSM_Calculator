@@ -27,6 +27,10 @@ function OrdinamentoHost(param){
     return param.sort().reverse()
 }
 
+function controlSpace(param, cidr){
+    return (param.reduce((a,b) => a+b)) < 2**(32-cidr)
+}
+
 function textbox(e){
     this.createDom(e.parentNode.querySelector("input").value)
 }
