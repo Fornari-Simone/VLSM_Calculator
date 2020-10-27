@@ -57,8 +57,8 @@ class IP {
         });
     }
 
-    HighButton() {
-        return `<h3>${this.net.join(".")} (/${this.cidr})</h3>`
+    HighButton(listener, id) {
+        return `<h3 onclick="${listener}" id="${id}">${this.net.join(".")} (/${this.cidr})</h3>`
     }
 
     Dom(){
