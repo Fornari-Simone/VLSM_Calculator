@@ -8,6 +8,7 @@ function createDom(e){
         table[idx].innerText = value
     })
     let elenco = [...document.getElementById("Elenco").children]
+    if(elenco.length > 3) document.getElementById("Elenco").style.overflowY = "scroll"
     e.classList.add("active")
     elenco.forEach(value => {
         if(!value.isSameNode(e))
@@ -84,5 +85,6 @@ function reset(){
     document.getElementById("table").style.display = "none";
     document.getElementById("Elenco").style.display = "none";
     document.getElementById("hosts").style.display = "block";
+    document.getElementById("Elenco").style.overflowY = "hidden"
     document.getElementById("Elenco").innerHTML = "";
 }
