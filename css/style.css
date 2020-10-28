@@ -79,3 +79,6 @@ h3:hover, #reset:hover, #calcola:hover{
 #reset:hover{
     background-color: rgb(119, 0, 0);
 }
+.active{
+    background-color: rgb(0, 24, 160);
+}

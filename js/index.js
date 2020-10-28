@@ -1,13 +1,19 @@
 let ips = []
 
-function createDom(id){
+function createDom(e){
     let table = [...document.querySelectorAll("#table label")];
-    //console.log(table)
-    let ip = ips[parseInt(id)]
+    let ip = ips[parseInt(e.id)]
     let dom = ip.Dom();
     dom.forEach((value, idx) => {
         table[idx].innerText = value
     })
+    let elenco = [...document.getElementById("Elenco").children]
+    e.classList.add("active")
+    elenco.forEach(value => {
+        if(!value.isSameNode(e))
+            value.classList.remove("active")
+    })
+
 }
 
 function NHostToCidr(h){
@@ -46,7 +52,7 @@ function textbox(e){
         let ip = new IP(net, NHostToCidr(value))
         ips.push(ip)
         net = BroadcastToNextNet(ip.broadcast)
-        document.getElementById("Elenco").innerHTML += ip.HighButton("createDom(this.id)",idx)
+        document.getElementById("Elenco").innerHTML += ip.HighButton("createDom(this)",idx)
     })
     document.getElementById("Elenco").firstChild.click()
 }
