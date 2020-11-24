@@ -27,7 +27,7 @@ function NHostToCidr(h){
 }
 
 function OrdinamentoHost(param){
-    return param.sort().reverse()
+    return param.sort()
 }
 
 function controlSpace(param, cidr){
@@ -52,6 +52,7 @@ function textbox(e){
     hostDec.forEach((value, idx) => {
         let ip = new IP(net, NHostToCidr(value))
         ips.push(ip)
+        console.log(ip.broadcast)
         net = BroadcastToNextNet(ip.broadcast)
         document.getElementById("Elenco").innerHTML += ip.HighButton("createDom(this)",idx)
     })
@@ -61,6 +62,7 @@ function textbox(e){
 function BroadcastToNextNet(bc){
     let binBc = bc.map(value => add0(value.toString(2)))
     let decNet = parseInt(binBc.join(""), 2)+1
+    
     let strNet = decNet.toString(2)
     let lung = 32 - strNet.length
     let out = ""

@@ -35,6 +35,10 @@ label{
 #netDiv > label, #hosts > label, #reset{
     border: none;
 }
+#hosts > label{
+    padding-top: 30px;
+    margin-top: 25px;
+}
 #hosts{
     text-align: center;
 }
