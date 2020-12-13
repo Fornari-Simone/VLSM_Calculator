@@ -1,13 +1,23 @@
 class IP {
-    constructor (net, mask){
+    constructor (net, host){
         this.net = net.split(".").map(value => parseInt(value));
-        this.cidr = parseInt(mask);
+        this.host = host;
+        this.cidr = this.NHostToCidr()
         this.mask = this.CidrToMask()
         this.net = this.toNet();
         this.wildcard = this.Wildcard()
         this.broadcast = this.Broadcast()
         this.firstHost = this.FirstHost()
         this.lastHost = this.LastHost()
+    }
+
+    NHostToCidr(){
+        let out = "";
+        for (let i = 0; i < 32; i++) {
+            if(2**i < this.host+2) out += "0"
+            else out += "1"
+        }
+        return (out.match(/1/g) || []).length
     }
 
     toNet(){
@@ -63,6 +73,7 @@ class IP {
 
     Dom(){
         return [
+            `${this.host}`,
             this.net.join("."),
             `${this.mask.join(".")} (/${this.cidr})`,
             this.firstHost.join("."),

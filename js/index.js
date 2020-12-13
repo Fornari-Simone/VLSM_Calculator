@@ -17,14 +17,7 @@ function createDom(e){
 
 }
 
-function NHostToCidr(h){
-    let out = "";
-    for (let i = 0; i < 32; i++) {
-        if(2**i < h+2) out += "0"
-        else out += "1"
-    }
-    return (out.match(/1/g) || []).length
-}
+
 
 function OrdinamentoHost(param){
     return param.sort()
@@ -50,7 +43,7 @@ function textbox(e){
     let hostDec = OrdinamentoHost(param)
     let net = (value.split("/"))[0]
     hostDec.forEach((value, idx) => {
-        let ip = new IP(net, NHostToCidr(value))
+        let ip = new IP(net, value)
         ips.push(ip)
         console.log(ip.broadcast)
         net = BroadcastToNextNet(ip.broadcast)
